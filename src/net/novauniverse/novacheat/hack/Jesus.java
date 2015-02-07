@@ -3,6 +3,7 @@ package net.novauniverse.novacheat.hack;
 import net.novauniverse.novacheat.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -24,13 +25,17 @@ public class Jesus implements Listener {
 
         if (e.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType()== Material.WATER|| e.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType()==Material.STATIONARY_WATER) {
             if (jesus1.contains(e.getPlayer().getName())) {
-                while (e.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType().equals(Material.WATER) || e.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType().equals(Material.STATIONARY_WATER)) {
-                    e.getPlayer().teleport(e.getPlayer().getLocation().subtract(0, 1, 0));
-                }
-
-                e.getPlayer().sendMessage(Core.generateMessage("water walking"));
-                Bukkit.getLogger().warning(e.getPlayer().getName()+" is suspected of Water Walking hacks.");
-                jesus1.remove(e.getPlayer().getName());
+                final Player p = e.getPlayer();
+                Bukkit.getScheduler().runTaskLater(Core.plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        if (p.getLocation().subtract(0, 1, 0).getBlock().getType()==Material.WATER||p.getLocation().subtract(0, 1, 0).getBlock().getType()==Material.STATIONARY_WATER) {
+                            p.sendMessage(Core.generateMessage("water walking"));
+                            Bukkit.getLogger().warning(p.getName()+" is suspected of Water Walking hacks.");
+                            p.teleport(p.getLocation().subtract(0, 1, 0));
+                        }
+                    }
+                }, 25);
             } else {
                 jesus1.add(e.getPlayer().getName());
             }

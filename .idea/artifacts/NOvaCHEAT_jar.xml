@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="NOvaCHEAT:jar">
-    <output-path>$PROJECT_DIR$/../../Servers/Bungee/HubTest/plugins</output-path>
+    <output-path>$PROJECT_DIR$/../NovaUniverse/Bungee/HubTest/plugins</output-path>
     <root id="archive" name="NOvaCHEAT.jar">
       <element id="module-output" name="NOvaCHEAT" />
     </root>
